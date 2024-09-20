@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Creation for a new table 
+
+Parameters:
+  DynamoDBTableName:
+    Type: String 
+    Description: DynamoDB Table Name 
+
+Resources:
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table 
+    Properties:
+      TableName: !Ref DynamoDBTableName 
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH 
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
