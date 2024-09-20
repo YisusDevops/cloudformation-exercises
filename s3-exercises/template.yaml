@@ -2,15 +2,18 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: S3 Bucket template 
 
 Parameters:
+  
   S3BucketName: 
     Type: String
     Description: S3 Bucket Name
+  
   EnableVersioning:
     Type: String
     AllowedValues:
       - true 
       - false 
     Description: Enable or disable s3 bucket versioning
+  
   S3BucketAccessType: 
     Type: String 
     AllowedValues:
@@ -19,7 +22,8 @@ Parameters:
     Description: Define if the S3Bucket will be public or private
 
 Resources:
+  
   MyBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !ref S3BucketName
+      BucketName: !Ref S3BucketName
