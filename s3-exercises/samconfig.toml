@@ -1,0 +1,12 @@
+version = 0.1
+[default.deploy.parameters]
+stack_name = "project-01-sam-stack"
+resolve_s3 = true
+s3_prefix = "project-01-sam-stack"
+region = "us-east-1"
+profile = "September-Admin"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+parameter_overrides = "S3BucketName=\"project-01-from-sam\" EnableVersioning=\"false\" S3BucketAccessType=\"public\""
+image_repositories = []
