@@ -5,6 +5,16 @@ Parameters:
   DynamoDBTableName:
     Type: String 
     Description: DynamoDB Table Name 
+  ReadingAbility:
+    Type: Number 
+    Description: Reading capacity for DynamoDb table
+    MinValue: 1
+    MaxValue: 100
+  WritingAbility:
+    Type: Number
+    Description: Writing capacity for DynamoDB table
+    MinValue: 1
+    MaxValue: 100
 
 Resources:
   DynamoDBTable:
@@ -18,5 +28,5 @@ Resources:
         - AttributeName: id
           KeyType: HASH 
       ProvisionedThroughput:
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
+        ReadCapacityUnits: !Ref ReadingAbility
+        WriteCapacityUnits: !Ref WritingAbility
