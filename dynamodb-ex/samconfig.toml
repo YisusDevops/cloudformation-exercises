@@ -7,5 +7,5 @@ region = "us-east-1"
 profile = "September-Admin"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
-parameter_overrides = "DynamoDBTableName=\"project-03-from-sam\""
+parameter_overrides = "DynamoDBTableName=\"project-03-from-sam\" ReadingAbility=\"4\" WritingAbility=\"5\""
 image_repositories = []
