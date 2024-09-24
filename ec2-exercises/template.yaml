@@ -9,6 +9,10 @@ Parameters:
       - t3.small
     Description: Type of EC2 Instance to deploy
 
+  EC2InstanceName:
+    Type: String
+    Description: Name to assign to the EC2 Instance
+
 Resources:
   InstanceLaunch:
     Type: AWS::EC2::Instance
