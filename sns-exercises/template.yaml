@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: SNS Topic with subscription
+
+Parameters:
+  EndpointSNS:
+    Type: String
+    Description: The SNS subscription endpoint (email or phone number)
+
+  SNSTopicName:
+    Type: String
+    Description: The name to assign to the SNS Topic
+
+Resources:
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties: 
+      TopicName: !Ref SNSTopicName
+      DisplayName: "MySNSDisplayName"
+
+  SNSSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Endpoint: !Ref EndpointSNS
+      Protocol: email
+      TopicArn: !Ref SNSTopic
