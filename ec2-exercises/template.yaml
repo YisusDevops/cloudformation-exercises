@@ -22,6 +22,9 @@ Resources:
       InstanceType: !Ref EC2InstanceType
       SecurityGroups:
         - !Ref HTTPSecurityGroup
+      Tags:
+        - Key: Name
+          Value: !Ref EC2InstanceName
 
   HTTPSecurityGroup:
     Type: AWS::EC2::SecurityGroup
