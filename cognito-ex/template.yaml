@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: "2010-09-09" 
+Description: Cognito user pool and user group
+
+Parameters:
+  CognitoGroupName:
+    Type: String 
+    Description: Cognito users group name 
+
+Resources:
+  UserPool: 
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: project-05-userpool
+      AutoVerifiedAttributes:
+        - email 
+      Policies: 
+        PasswordPolicy:
+          MinimumLength: 8
+          RequireUppercase: true
+          RequireLowercase: true
+          RequireNumbers: true
+          RequireSymbols: true
+
+  CognitoUserGroup:
+    Type: AWS::Cognito::UserPoolGroup
+    Properties:
+      GroupName: !Ref CognitoGroupName
+      UserPoolId: !Ref UserPool
+      Description: Group for managing user access
+      Precedence: 1
