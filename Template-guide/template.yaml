@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  BucketNameParam:
+    Type: String
+    Default: yaml-bucket-07
+    Description: Nombre del bucket S3
+  DefaultRootObjectParam:
+    Type: String
+    Default: index.html
+    Description: Archivo por defecto que cargará CloudFront
+
+Resources:
+  S3BucketYaml:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: yaml-bucket-07
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+  MyBucketPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket:
+        Ref: 'S3BucketYaml'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource:
+              Fn::Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref: 'S3BucketYaml'
+                  - '/*'
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        DefaultRootObject: index.html
+        Origins:
+          - Id: S3Origin
+            DomainName: !GetAtt S3BucketYaml.DomainName
+            S3OriginConfig: {}
+        DefaultCacheBehavior:
+          TargetOriginId: S3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods:
+            - GET
+            - HEAD
+          CachedMethods:
+            - GET
+            - HEAD
+          ForwardedValues:
+            QueryString: false
+            Cookies:
+              Forward: none
+        IPV6Enabled: true
